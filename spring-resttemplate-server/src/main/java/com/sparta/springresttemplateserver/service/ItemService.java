@@ -40,10 +40,15 @@ public class ItemService {
     public Item postCall(String query, UserRequestDto requestDto) {
         System.out.println("requestDto.getUsername() = "+requestDto.getUsername());
         System.out.println("requestDto.getPassword() = "+requestDto.getPassword());
+
         return getCallObject(query);
     }
 
     public ItemResponseDto exchangeCall(String token, UserRequestDto requestDto) {
-        return null;
+        System.out.println("token = "+token);
+        System.out.println("requestDto.getUsername() = "+requestDto.getUsername());
+        System.out.println("requestDto.getPassword() = "+requestDto.getPassword());
+
+        return getCallList();
     }
 }

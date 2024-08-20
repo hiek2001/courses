@@ -33,7 +33,7 @@ public class RestTemplateController {
     }
 
     @GetMapping("/exchange-call")
-    public List<ItemDto> exchangeCall(@RequestHeader("Authorization") String token) {
+    public List<ItemDto> exchangeCall(@RequestHeader("Authorization") String token) { // @RequestHeader : header에서 해당되는 Authorization Key의 값을 가져올 수 있음
         return restTemplateService.exchangeCall(token);
     }
 }
