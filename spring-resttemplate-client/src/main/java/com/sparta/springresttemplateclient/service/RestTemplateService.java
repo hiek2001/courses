@@ -1,12 +1,15 @@
 package com.sparta.springresttemplateclient.service;
 
 import com.sparta.springresttemplateclient.dto.ItemDto;
+import com.sparta.springresttemplateclient.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,6 +26,7 @@ public class RestTemplateService {
     public RestTemplateService(RestTemplateBuilder builder) {
         this.restTemplate = builder.build();
     }
+
 
     public ItemDto getCallObject(String query) {
         // 요청 URL 만들기 (Client -> Server)
@@ -64,7 +68,24 @@ public class RestTemplateService {
 
 
     public ItemDto postCall(String query) {
-        return null;
+        // 요청 URL 만들기
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:7070")
+                .path("/api/server/post-call/{query}")
+                .encode()
+                .build()
+                .expand(query) // @PathVariable
+                .toUri();
+        log.info("uri = "+uri);
+
+        User user = new User("Ranny", "1234");
+
+        // postForEntity : (1)POST 방식으로 uri를 만들어서 보냄. (2)HTTP Body에 넣어줄 데이터 (@RequestBody). (3)전달 받은 데이터와 mapping할 Class
+        ResponseEntity<ItemDto> responseEntity = restTemplate.postForEntity(uri, user, ItemDto.class);
+
+        log.info("statusCode = "+responseEntity.getStatusCode());
+
+        return responseEntity.getBody();
     }
 
     public List<ItemDto> exchangeCall(String token) {
