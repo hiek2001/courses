@@ -38,14 +38,15 @@ public class UserController {
         return "redirect:/api/user/login-page";
     }
 
-    @PostMapping("/user/login")
-    public String login(LoginRequestDto requestDto, HttpServletResponse res) {
-        try {
-            userService.login(requestDto, res);
-        } catch (Exception e) { // 로그인 페이지로 넘겨줌
-            return "redirect:/api/user/login-page?error";
-        }
-
-        return "redirect:/";
-    }
+//   **** 이 영역은 JwtAuthenticationFilter에서 구현함
+//    @PostMapping("/user/login")
+//    public String login(LoginRequestDto requestDto, HttpServletResponse res) {
+//        try {
+//            userService.login(requestDto, res);
+//        } catch (Exception e) { // 로그인 페이지로 넘겨줌
+//            return "redirect:/api/user/login-page?error";
+//        }
+//
+//        return "redirect:/";
+//    }
 }
