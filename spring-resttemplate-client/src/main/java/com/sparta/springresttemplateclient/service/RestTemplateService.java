@@ -113,6 +113,7 @@ public class RestTemplateService {
         return fromJSONtoItems(responseEntity.getBody());
     }
 
+
     // 중첩 JSON 형태을 String으로 받아옴 -> 값을 꺼내서 Items 형태로 변환
 //    {
 //        "items":[
@@ -135,4 +136,5 @@ public class RestTemplateService {
 
         return itemDtoList;
     }
+
 }

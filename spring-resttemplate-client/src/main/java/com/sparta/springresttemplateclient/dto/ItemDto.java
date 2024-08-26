@@ -14,4 +14,6 @@ public class ItemDto {
         this.title = itemJson.getString("title");
         this.price = itemJson.getInt("price");
     }
+
+
 }
