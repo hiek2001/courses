@@ -84,7 +84,7 @@ public class OneToOneTest {
         // 외래 키의 주인이 아닌 User에서 Food를 저장
         User user = new User();
         user.setName("Roobie");
-        user.setFood(food);
+     //   user.setFood(food);
 
         userRepository.save(user);
         foodRepository.save(food);
@@ -103,7 +103,7 @@ public class OneToOneTest {
         // 외래 키의 주인이 아닌 User에서 Food를 저장하기 위해 addFood() 메소드를 추가
         User user = new User();
         user.setName("Roobie");
-        user.addFood(food); // 외래키(연관관계) 설정 food.setUser(this); 추가
+      //  user.addFood(food); // 외래키(연관관계) 설정 food.setUser(this); 추가
 
         userRepository.save(user);
         foodRepository.save(food);
@@ -145,9 +145,9 @@ public class OneToOneTest {
         System.out.println("user.getName()= "+user.getName());
 
         // 해당 고객이 주문한 음식 정보 조회
-        Food food = user.getFood();
-        System.out.println("food.getName() = "+food.getName());
-        System.out.println("food.getPrice() = "+food.getPrice());
+       // Food food = user.getFood();
+       // System.out.println("food.getName() = "+food.getName());
+      //  System.out.println("food.getPrice() = "+food.getPrice());
     }
 
 }

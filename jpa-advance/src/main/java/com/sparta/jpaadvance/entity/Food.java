@@ -15,7 +15,12 @@ public class Food { // 외래키의 주인
     private String name;
     private double price;
 
-    @OneToOne
+    // N 대 1
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    // 1 대 1
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 }

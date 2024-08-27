@@ -14,11 +14,16 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToOne(mappedBy = "user")
-    private Food food;
 
-    public void addFood(Food food) {
-        this.food = food;
-        food.setUser(this);
-    }
+
+    // 1 대 1
+//    @OneToOne(mappedBy = "user")
+//    private Food food;
+//
+//    public void addFood(Food food) {
+//        this.food = food;
+//        food.setUser(this);
+//    }
+
+
 }
