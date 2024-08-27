@@ -21,6 +21,12 @@ public class User {
     @ManyToMany(mappedBy = "userList")
     private List<Food> foodList = new ArrayList<>();
 
+    // 양방향 설정
+    public void addFoodList(Food food) {
+        this.foodList.add(food);
+        food.getUserList().add(this); // 외래 키(연관 관계) 설정
+    }
+
     // N 대 1
 //    @OneToMany(mappedBy = "user")
 //    private List<Food> foodList = new ArrayList<>(); // db에는 적용되지 않고, entity를 참조하기 위해 존재하는 것

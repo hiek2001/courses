@@ -25,6 +25,12 @@ public class Food { // 외래키의 주인
             inverseJoinColumns = @JoinColumn(name = "user_id")) // 반대 위치인 User Entity 에서 중간 테이블로 조인할 컬럼 설정
     private List<User> userList = new ArrayList<>();
 
+    // 양방향 설정
+    public void addUserList(User user) {
+        this.userList.add(user); // 외래 키(연관 관계) 설정
+        user.getFoodList().add(this);
+    }
+
     // N 대 1
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
