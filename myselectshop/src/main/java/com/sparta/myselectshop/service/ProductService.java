@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -40,5 +42,16 @@ public class ProductService {
         product.updateMyprice(requestDto);
 
         return new ProductResponseDto(product);
+    }
+
+    public List<ProductResponseDto> getProducts() {
+        List<Product> productList = productRespository.findAll();
+        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+
+        for (Product product : productList) {
+            responseDtoList.add(new ProductResponseDto(product));
+        }
+
+        return responseDtoList;
     }
 }
