@@ -112,4 +112,17 @@ public class FetchTypeTest {
             System.out.println(food.getName());
         }
     }
+
+    @Test
+    @Transactional
+    @DisplayName("FetchType LAZY 테스트")
+    void test4() {
+        User user = userRepository.findByName("Robbie");
+
+        for (Food food : user.getFoodList()) {
+            System.out.println(food.getName());
+        }
+    }
+
+
 }
