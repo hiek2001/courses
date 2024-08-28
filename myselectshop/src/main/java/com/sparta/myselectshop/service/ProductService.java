@@ -4,7 +4,8 @@ import com.sparta.myselectshop.dto.ProductMyPriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.Product;
-import com.sparta.myselectshop.repository.ProductRespository;
+import com.sparta.myselectshop.naver.dto.ItemDto;
+import com.sparta.myselectshop.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +20,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRespository productRespository;
+    private final ProductRepository productRepository;
 
     public static final int MIN_MY_PRICE = 100;
 
     public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        Product product = productRespository.save(new Product(requestDto));
+        Product product = productRepository.save(new Product(requestDto));
         return new ProductResponseDto(product);
     }
 
@@ -35,7 +36,7 @@ public class ProductService {
             throw new IllegalArgumentException("유효하지 않은 관심 가격입니다. 최소 "+MIN_MY_PRICE+"원 이상으로 설정해주세요.");
         }
 
-        Product product = productRespository.findById(id).orElseThrow(() ->
+        Product product = productRepository.findById(id).orElseThrow(() ->
                 new NullPointerException("해당 상품이 존재하지 않습니다.")
         );
 
@@ -45,7 +46,7 @@ public class ProductService {
     }
 
     public List<ProductResponseDto> getProducts() {
-        List<Product> productList = productRespository.findAll();
+        List<Product> productList = productRepository.findAll();
         List<ProductResponseDto> responseDtoList = new ArrayList<>();
 
         for (Product product : productList) {
@@ -53,5 +54,14 @@ public class ProductService {
         }
 
         return responseDtoList;
+    }
+
+    @Transactional
+    public void updateBySearch(Long id, ItemDto itemDto) {
+        Product product = productRepository.findById(id).orElseThrow(() ->
+            new NullPointerException("해당 상품이 존재하지 않습니다.")
+        );
+
+        product.updateByItemDto(itemDto);
     }
 }
