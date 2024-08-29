@@ -41,8 +41,11 @@ public class Product extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false) // nullable = false : 무조건 들어오게끔 설정
     private User user;
 
+    // product를 사용할 때마다 productFolderList를 항상 필요한건 아니기 때문에 '지연로딩' 사용
+    // 그러기 위해 product 엔티티를 사용하는 곳에 @Transactional를 추가해야 하고
+    // '조회'만 하고 있고, 성능을 올려주기 위해 @Transactional(readOnly = true) 사용
     @OneToMany(mappedBy = "product") // mappedBy : 양방향이기 때문에 주인 설정
-    private List<ProductFolder> productFolder = new ArrayList<>();
+    private List<ProductFolder> productFolderList = new ArrayList<>();
 
     public Product(ProductRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
