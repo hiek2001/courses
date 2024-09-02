@@ -30,16 +30,4 @@ public class FolderController {
     public List<FolderResponseDto> getFolders(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return folderService.getFolders(userDetails.getUser());
     }
-
-    @ExceptionHandler({IllegalArgumentException.class}) // 여기 Controller에서 IllegalArgumentException가 발생하면 잡아챈다
-    public ResponseEntity<RestApiException> handleException(IllegalArgumentException ex) {
-        System.out.println("FolderController.handleException");
-        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(
-                // HTTP body
-                restApiException,
-                // HTTP status code
-                HttpStatus.BAD_REQUEST
-        );
-    }
 }
